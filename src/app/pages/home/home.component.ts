@@ -9,12 +9,16 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  public olympics$: Observable<any> = of(null);
-
+  // public olympics$: Observable<any> = of(null);
+  public olympics$: Observable<Olympic[]> = of([]);
+  public pieChartData: any[] = [];
+  public view: [number, number] = [700, 400]; // Taille du graphique
+  public colorScheme = 'cool';
   constructor(private olympicService: OlympicService) {}
 
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
+    this.updatePieChartData();
   }
 
   getTotalMedals(olympic: Olympic): number {
@@ -22,4 +26,14 @@ export class HomeComponent implements OnInit {
       return total + participation.medalsCount;
     }, 0);
   }
+
+  updatePieChartData(): void {
+    this.olympics$.subscribe((olympics) => {
+      this.pieChartData = olympics.map((olympic) => ({
+        name: olympic.country,
+        value: this.getTotalMedals(olympic),
+      }));
+    });
+  }
+
 }

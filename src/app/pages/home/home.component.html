@@ -4,6 +4,17 @@
 <h2>Medals per country</h2>
 <p>Number of countries: {{ (olympics$ | async)?.length }}</p>
 
+<div *ngIf="pieChartData.length > 0">
+  <ngx-charts-pie-chart>
+    [view]="[700, 400]"  <!-- Taille du graphique -->
+    [scheme]="colorScheme"
+    [results]="pieChartData"  <!-- Données -->
+    [labels]="true"           <!-- Affichage des labels -->
+    [doughnut]="false"        <!-- C'est un pie chart, pas un doughnut chart -->
+    [legend]="true">          <!-- Affichage de la légende -->
+  </ngx-charts-pie-chart>
+</div>
+
 <div *ngIf="olympics$ | async as olympics;">
   <div *ngFor="let olympic of olympics">
     <h3>{{ olympic.country }}</h3>
