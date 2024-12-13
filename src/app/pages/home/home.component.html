@@ -1,3 +1,12 @@
 <h2>Olympic games app</h2>
 <hr />
-<p>{{ (olympics$ | async)?.length }} data loaded</p>
+
+<h2>Medals per country</h2>
+<p>Number of countries: {{ (olympics$ | async)?.length }}</p>
+
+<div *ngIf="olympics$ | async as olympics;">
+  <div *ngFor="let olympic of olympics">
+    <h3>{{ olympic.country }}</h3>
+    <p>Total Medals: {{ getTotalMedals(olympic) }}</p>
+  </div>
+</div>

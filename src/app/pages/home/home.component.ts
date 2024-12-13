@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { Olympic } from 'src/app/core/models/Olympic';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 
 @Component({
@@ -14,5 +15,11 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
+  }
+
+  getTotalMedals(olympic: Olympic): number {
+    return olympic.participations.reduce((total, participation) => {
+      return total + participation.medalsCount;
+    }, 0);
   }
 }
