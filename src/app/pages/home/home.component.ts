@@ -12,8 +12,7 @@ export class HomeComponent implements OnInit {
   // public olympics$: Observable<any> = of(null);
   public olympics$: Observable<Olympic[]> = of([]);
   public pieChartData: any[] = [];
-  public view: [number, number] = [700, 400]; // Taille du graphique
-  public colorScheme = 'cool';
+
   constructor(private olympicService: OlympicService) {}
 
   ngOnInit(): void {
