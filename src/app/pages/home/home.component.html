@@ -5,13 +5,13 @@
 <p>Number of countries: {{ (olympics$ | async)?.length }}</p>
 
 <div *ngIf="pieChartData.length > 0">
-  <ngx-charts-pie-chart>
-    [view]="[700, 400]"  <!-- Taille du graphique -->
+  <ngx-charts-pie-chart
+    [view]="view"  
     [scheme]="colorScheme"
-    [results]="pieChartData"  <!-- Données -->
-    [labels]="true"           <!-- Affichage des labels -->
-    [doughnut]="false"        <!-- C'est un pie chart, pas un doughnut chart -->
-    [legend]="true">          <!-- Affichage de la légende -->
+    [results]="pieChartData"  
+    [labels]="true"           
+    [doughnut]="false"       
+    [legend]="true">          
   </ngx-charts-pie-chart>
 </div>
 
