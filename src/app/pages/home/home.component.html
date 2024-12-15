@@ -8,6 +8,7 @@
   <ngx-charts-pie-chart
     [results]="pieChartData"
     [labels]="true"
+    (select)="onSelect($event)">
     >
   </ngx-charts-pie-chart>
 </div>
