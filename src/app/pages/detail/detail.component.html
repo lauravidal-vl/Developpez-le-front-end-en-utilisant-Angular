@@ -1,4 +1,24 @@
-<div *ngIf="olympic$ | async as olympic">
+<div *ngIf="olympics$ | async as olympic; else noData">
   <h1>{{ olympic.country }}</h1>
-  <h2>Medals: {{ olympic.participations.length}}</h2>
+  <h2>Number of participations: {{ olympic.participations.length}}</h2>
+  <h2>Number of medals: {{ totalMedals }}</h2>
+  <h2>Total number of athletes: {{ totalAthletes }} </h2>
 </div>
+
+<div *ngIf="lineChartData.length > 0">
+  <ngx-charts-line-chart
+  [showXAxisLabel]="showXAxisLabel"
+  [xAxis]="xAxis"
+  [yAxis]="yAxis"
+  [xAxisLabel]="xAxisLabel"
+  [timeline]="timeline"
+  [results]="lineChartData"
+    >
+  </ngx-charts-line-chart>
+</div>
+
+
+<ng-template #noData>
+  <h1>No data available</h1>
+  <p>The ID you entered does not correspond to any Olympic data.</p>
+</ng-template>
