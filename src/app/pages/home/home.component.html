@@ -1,14 +1,22 @@
-<h2>Olympic games app</h2>
-<hr />
+<div class="home-block">
+  <h1 class="title">Medals per country</h1>
 
-<h2>Medals per country</h2>
-<!-- <p>Number of countries: {{ (olympics$ | async)?.length }}</p> -->
+  <div *ngIf="olympics$ | async as olympic;" class="stats-container">
+    <div class="stat-block">
+      <h2 class="stat-title">Number of JOs</h2>
+      <p class="stat-value">{{ totalYears }}</p>
+    </div>
+    <div class="stat-block">
+      <h2 class="stat-title">Number of countries</h2>
+      <p class="stat-value">{{ olympic.length }}</p>
+    </div>
+  </div>
 
-<div *ngIf="pieChartData.length > 0">
-  <ngx-charts-pie-chart
-    [results]="pieChartData"
-    [labels]="true"
-    (select)="onSelect($event)">
-    >
-  </ngx-charts-pie-chart>
+  <div *ngIf="pieChartData.length > 0" class="chart-container">
+    <ngx-charts-pie-chart
+      [results]="pieChartData"
+      [labels]="true"
+      (select)="onSelect($event)">
+    </ngx-charts-pie-chart>
+  </div>
 </div>

@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
   // public olympics$: Observable<any> = of(null);
   public olympics$: Observable<Olympic[]> = of([]);
   public pieChartData!: PieChart[];
+  public totalYears: number = 0;
 
   constructor(private olympicService: OlympicService,
     private router: Router) {}
@@ -22,6 +23,11 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
     this.updatePieChartData();
+    this.olympics$.subscribe((olympics) => {
+      if (olympics) {
+        this.totalYears = this.getTotalYears(olympics[0]);
+    }
+    });
   }
 
   getTotalMedals(olympic: Olympic): number {
@@ -29,6 +35,12 @@ export class HomeComponent implements OnInit {
       return total + participation.medalsCount;
     }, 0);
   }
+
+  getTotalYears(olympic: Olympic): number {
+    const uniqueYears = new Set(olympic.participations.map(participation => participation.year));
+    return uniqueYears.size; // Retourne le nombre d'années uniques
+  }
+
 
   updatePieChartData(): void {
     this.olympics$.subscribe((olympics) => {
@@ -56,5 +68,7 @@ export class HomeComponent implements OnInit {
         console.log('Country not found!');
       }
     }
+
+
 
 }
