@@ -27,6 +27,18 @@
   [timeline]="timeline"
   [results]="lineChartData"
     >
+    <ng-template #tooltipTemplate let-model="model">
+      <div ngx-tooltip>
+        <p>{{ model.name }}</p>
+        <p>{{ model.value }} <i class="fa fa-medal"></i></p>
+      </div>
+    </ng-template>
+    <ng-template #seriesTooltipTemplate let-model="model">
+      <div ngx-tooltip>
+        <p>{{ model[0].name }}</p>
+        <p>{{ model[0].value }} <i class="fa fa-medal"></i></p>
+      </div>
+    </ng-template>
   </ngx-charts-line-chart>
 </div>
 <a routerLink="" class="btn-back">Go back</a>

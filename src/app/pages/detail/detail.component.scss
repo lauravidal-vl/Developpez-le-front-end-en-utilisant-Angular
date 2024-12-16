@@ -110,3 +110,13 @@
     padding: 0.4rem 0.8rem; /* Ajuste les marges internes */
   }
 }
+
+::ng-deep .ngx-charts-tooltip-content.type-tooltip {
+  background-color: #2F808E !important; // modifie la couleur du tooltip
+  .tooltip-caret.position-top { //la couleur du triangle sur le tooltip
+      border-top: 7px solid #2F808E !important;
+    }
+  .tooltip-caret.position-right {
+    border-right: 7px solid #2F808E !important;
+  }
+}
