@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { Olympic } from 'src/app/core/models/Olympic';
 import { Observable, of } from 'rxjs';
+import { LineChart } from 'src/app/core/models/LineChart';
 
 @Component({
   selector: 'app-detail',
@@ -13,7 +14,7 @@ export class DetailComponent implements OnInit {
   public olympics$!: Observable<Olympic | undefined>;
   public totalMedals: number = 0;  // Propriété pour stocker le total des médailles
   public totalAthletes: number = 0;  // Propriété pour stocker le total des athlètes
-  public lineChartData: any[] = [];
+  public lineChartData: LineChart[] = [];
   public lineChartLabels: string[] = [];  // Pour les années ou villes des participations
 
 

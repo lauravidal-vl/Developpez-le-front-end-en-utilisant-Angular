@@ -12,7 +12,7 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
 })
 export class HomeComponent implements OnInit {
   @Input() olympic!: Olympic;
-  // public olympics$: Observable<any> = of(null);
+
   public olympics$: Observable<Olympic[]> = of([]);
   public pieChartData!: PieChart[];
   public totalYears: number = 0;
@@ -55,11 +55,10 @@ export class HomeComponent implements OnInit {
   }
 
       // Méthode appelée lors du clic sur un segment du graphique
-    onSelect(event: any): void {
-      const selectedCountryName = event.name;
+    onSelect(event: {name: string}): void {
       // Trouver l'ID correspondant au pays sélectionné
       const selectedCountry = this.pieChartData.find(
-        (country) => country.name === selectedCountryName
+        (country) => country.name === event.name
       );
       if (selectedCountry) {
         console.log('ID:', selectedCountry.id);  // Vous pouvez maintenant accéder à l'ID
