@@ -17,6 +17,12 @@
       [results]="pieChartData"
       [labels]="true"
       (select)="onSelect($event)">
+      <ng-template #tooltipTemplate let-model="model">
+        <div ngx-tooltip>
+          <p>{{ model.name }}</p>
+          <p>{{ model.value }} <i class="fa fa-medal"></i></p>
+        </div>
+      </ng-template>
     </ngx-charts-pie-chart>
   </div>
 </div>
