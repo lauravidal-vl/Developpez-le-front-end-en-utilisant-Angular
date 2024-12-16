@@ -1,12 +1,25 @@
-<div *ngIf="olympics$ | async as olympic; else noData">
-  <h1>{{ olympic.country }}</h1>
-  <h2>Number of participations: {{ olympic.participations.length}}</h2>
-  <h2>Number of medals: {{ totalMedals }}</h2>
-  <h2>Total number of athletes: {{ totalAthletes }} </h2>
+<div class="home-block">
+  <div *ngIf="olympics$ | async as olympic;" class="stats-container">
+    <h1 class="title">{{ olympic.country }}</h1>
+  </div>
+  <div *ngIf="olympics$ | async as olympic; else noData" class="stats-container">
+  <div class="stat-block">
+    <h2 class="stat-title">Number of entries</h2>
+    <p class="stat-value">{{ olympic.participations.length }}</p>
+  </div>
+  <div class="stat-block">
+    <h2 class="stat-title">Total number medals</h2>
+    <p class="stat-value">{{ totalMedals }}</p>
+  </div>
+  <div class="stat-block">
+    <h2 class="stat-title">Total number of athletes</h2>
+    <p class="stat-value">{{ totalAthletes }}</p>
+  </div>
 </div>
 
-<div *ngIf="lineChartData.length > 0">
+<div *ngIf="lineChartData.length > 0" class="chart-container">
   <ngx-charts-line-chart
+  [view]="[700, 400]"
   [showXAxisLabel]="showXAxisLabel"
   [xAxis]="xAxis"
   [yAxis]="yAxis"
@@ -16,11 +29,11 @@
     >
   </ngx-charts-line-chart>
 </div>
-<a routerLink="">Go back</a>
+<a routerLink="" class="btn-back">Go back</a>
 
 
 <ng-template #noData>
   <h1>No data available</h1>
   <p>The ID you entered does not correspond to any Olympic data.</p>
-  <a routerLink="">Go back</a>
 </ng-template>
+</div>
