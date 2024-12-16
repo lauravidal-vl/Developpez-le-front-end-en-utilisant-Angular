@@ -1,39 +1,42 @@
 .home-block {
   text-align: center;
   margin: 0 auto;
+  padding: 1rem; /* Ajout de padding pour espacement général */
 
   .title {
     font-size: 1.5rem;
     color: white;
     margin-bottom: 1.5rem;
-    background-color: #2F808E ; /* Fond vert d'eau */
-    padding: 0.5rem; /* Espacement interne pour aérer le texte */
-    border-radius: 8px; /* Coins arrondis */
-    display: inline-block; /* Pour ajuster la largeur à celle du texte */
+    background-color: #2F808E;
+    padding: 0.5rem;
+    border-radius: 8px;
+    display: inline-block;
     font-weight: 300;
   }
 
   .stats-container {
     display: flex;
+    flex-wrap: wrap; /* Permet d'adapter les blocs sur plusieurs lignes */
     justify-content: center; /* Centre les blocs horizontalement */
-    gap: 3rem; /* Espace entre les deux blocs */
+    gap: 2rem; /* Réduit l'espace entre les blocs pour les petits écrans */
     margin-bottom: 2rem;
 
     .stat-block {
       display: flex;
-      flex-direction: column; /* Aligne le titre et la valeur verticalement */
-      align-items: center; /* Centre les éléments horizontalement */
-      border: 2px solid #2F808E ; /* Bordure vert d'eau */
-      border-radius: 8px; /* Coins arrondis */
-      padding: 0.5rem; /* Espacement interne pour aérer le contenu */
+      flex-direction: column;
+      align-items: center;
+      border: 2px solid #2F808E;
+      border-radius: 8px;
+      padding: 0.5rem;
+      max-width: 300px; /* Limite la largeur des blocs */
     }
 
     .stat-title {
       font-size: 1rem;
       font-weight: 300;
       color: #555;
-      margin-bottom: 0.25rem; /* Espacement entre le titre et la valeur */
-      margin-top: 0
+      margin-bottom: 0.25rem;
+      margin-top: 0;
     }
 
     .stat-value {
@@ -50,30 +53,60 @@
     justify-content: center;
     align-items: center;
     margin: 20px 0;
+    width: 100%; /* S'assure que le graphique prend toute la largeur */
   }
 
   .btn-back {
-    display: inline-block; /* Pour que le lien ressemble à un bouton */
-    padding: 0.5rem 1rem; /* Espacement interne */
-    font-size: 1rem; /* Taille du texte */
-    font-weight: 300; /* Police légère */
-    text-align: center; /* Centrer le texte */
-    color: white; /* Couleur du texte */
-    background-color: #2F808E; /* Fond vert d'eau */
-    border: 2px solid #2F808E; /* Bordure de la même couleur que le fond */
-    border-radius: 8px; /* Coins arrondis */
-    text-decoration: none; /* Supprime le soulignement */
-    transition: background-color 0.3s ease, color 0.3s ease; /* Animation douce pour le hover */
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 300;
+    text-align: center;
+    color: white;
+    background-color: #2F808E;
+    border: 2px solid #2F808E;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   .btn-back:hover {
-    background-color: white; /* Change le fond en blanc */
-    color: #2F808E; /* Change la couleur du texte en vert d'eau */
+    background-color: white;
+    color: #2F808E;
   }
 
   .btn-back:active {
-    background-color: #1F5A60; /* Couleur légèrement plus sombre au clic */
-    border-color: #1F5A60; /* Assure la cohérence avec la couleur de fond */
+    background-color: #1F5A60;
+    border-color: #1F5A60;
+  }
+}
+
+/* Media Queries */
+@media (max-width: 1024px) {
+  .stats-container {
+    gap: 1.5rem; /* Réduit l'espace entre les blocs */
   }
 
+  .stat-block {
+    flex: 1 1 calc(50% - 1.5rem); /* Deux blocs par ligne */
+  }
+}
+
+@media (max-width: 768px) {
+  .stats-container {
+    gap: 1rem; /* Réduit encore l'espace */
+  }
+
+  .stat-block {
+    flex: 1 1 100%; /* Un bloc par ligne */
+  }
+
+  .chart-container {
+    margin-top: 1rem;
+  }
+
+  .btn-back {
+    font-size: 0.9rem; /* Réduit légèrement la taille du bouton */
+    padding: 0.4rem 0.8rem; /* Ajuste les marges internes */
+  }
 }

@@ -16,6 +16,7 @@ export class DetailComponent implements OnInit {
   public totalAthletes: number = 0;  // Propriété pour stocker le total des athlètes
   public lineChartData: LineChart[] = [];
   public lineChartLabels: string[] = [];  // Pour les années ou villes des participations
+  public lineChartView: [number, number] = [700, 400];
 
 
   showLabels: boolean = true;
@@ -53,6 +54,19 @@ export class DetailComponent implements OnInit {
         this.totalAthletes = 0;
       }
     });
+    window.addEventListener('resize', () => this.updateChartView());
+  }
+
+  updateChartView() {
+    const width = window.innerWidth;
+
+    if (width < 768) {
+      this.lineChartView = [300, 300]; // Dimensions pour les mobiles
+    } else if (width < 1024) {
+      this.lineChartView = [500, 350]; // Dimensions pour les tablettes
+    } else {
+      this.lineChartView = [700, 400]; // Dimensions par défaut pour les grands écrans
+    }
   }
 
     // Méthode pour préparer les données du graphique
