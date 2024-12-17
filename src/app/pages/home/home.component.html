@@ -1,4 +1,4 @@
-<div class="home-block">
+<div class="main-block">
   <h1 class="title">Medals per country</h1>
 
   <div *ngIf="olympics$ | async as olympic;" class="stats-container">
@@ -12,7 +12,7 @@
     </div>
   </div>
 
-  <div *ngIf="pieChartData.length > 0" class="chart-container">
+  <div *ngIf="pieChartData.length > 0" class="chart-pie-container">
     <ngx-charts-pie-chart
       [results]="pieChartData"
       [labels]="true"

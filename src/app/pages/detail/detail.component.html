@@ -1,4 +1,4 @@
-<div class="home-block">
+<div class="main-block">
   <div *ngIf="olympics$ | async as olympic;" class="stats-container">
     <h1 class="title">{{ olympic.country }}</h1>
   </div>
@@ -17,7 +17,7 @@
   </div>
 </div>
 
-<div *ngIf="lineChartData.length > 0" class="chart-container">
+<div *ngIf="lineChartData.length > 0" class="chart-line-container">
   <ngx-charts-line-chart
   [view]="lineChartView"
   [showXAxisLabel]="showXAxisLabel"

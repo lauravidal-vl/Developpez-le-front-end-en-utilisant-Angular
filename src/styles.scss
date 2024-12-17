@@ -1,3 +1,103 @@
 * {
   font-family: Roboto, Helvetica, sans-serif;
 }
+
+.btn-back {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 300;
+  text-align: center;
+  color: white;
+  background-color: #2F808E;
+  border: 2px solid #2F808E;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-back:hover {
+  background-color: white;
+  color: #2F808E;
+}
+
+.btn-back:active {
+  background-color: #1F5A60;
+  border-color: #1F5A60;
+}
+
+.main-block {
+  text-align: center;
+  margin: 0 auto;
+  padding: 1rem;
+
+  .title {
+    font-size: 1.5rem;
+    color: white;
+    margin-bottom: 1.5rem;
+    background-color: #2F808E;
+    padding: 0.5rem;
+    border-radius: 8px;
+    display: inline-block;
+    font-weight: 300;
+  }
+
+  .stats-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+
+    .stat-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border: 2px solid #2F808E;
+      border-radius: 8px;
+      padding: 0.5rem;
+      max-width: 300px;
+    }
+
+    .stat-title {
+      font-size: 1rem;
+      font-weight: 300;
+      color: #555;
+      margin-bottom: 0.25rem;
+      margin-top: 0;
+    }
+
+    .stat-value {
+      font-size: 1rem;
+      font-weight: bold;
+      margin-top: 0.25rem;
+      margin-bottom: 0;
+    }
+  }
+}
+
+/* Media Queries */
+@media (max-width: 1024px) {
+  .stats-container {
+    gap: 1.5rem; /* Réduit l'espace entre les blocs */
+  }
+
+  .stat-block {
+    flex: 1 1 calc(50% - 1.5rem); /* Deux blocs par ligne */
+  }
+}
+
+@media (max-width: 768px) {
+  .stats-container {
+    gap: 1rem; /* Réduit encore l'espace */
+  }
+
+  .stat-block {
+    flex: 1 1 100%; /* Un bloc par ligne */
+  }
+
+  .btn-back {
+    font-size: 0.9rem; /* Réduit légèrement la taille du bouton */
+    padding: 0.4rem 0.8rem; /* Ajuste les marges internes */
+  }
+}

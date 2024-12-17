@@ -1,54 +1,5 @@
-.home-block {
-  text-align: center;
-  margin: 0 auto;
-
-  .title {
-    font-size: 1.5rem;
-    color: white;
-    margin-bottom: 1.5rem;
-    background-color: #2F808E ; /* Fond vert d'eau */
-    padding: 0.5rem; /* Espacement interne pour aérer le texte */
-    border-radius: 8px; /* Coins arrondis */
-    display: inline-block; /* Pour ajuster la largeur à celle du texte */
-    font-weight: 300;
-  }
-
-  .stats-container {
-    display: flex;
-    justify-content: center; /* Centre les blocs horizontalement */
-    gap: 3rem; /* Espace entre les deux blocs */
-    margin-bottom: 2rem;
-
-    .stat-block {
-      display: flex;
-      flex-direction: column; /* Aligne le titre et la valeur verticalement */
-      align-items: center; /* Centre les éléments horizontalement */
-      border: 2px solid #2F808E ; /* Bordure vert d'eau */
-      border-radius: 8px; /* Coins arrondis */
-      padding: 0.5rem; /* Espacement interne pour aérer le contenu */
-    }
-
-    .stat-title {
-      font-size: 1rem;
-      font-weight: 300;
-      color: #555;
-      margin-bottom: 0.25rem; /* Espacement entre le titre et la valeur */
-      margin-top: 0
-    }
-
-    .stat-value {
-      font-size: 1rem;
-      font-weight: bold;
-      margin-top: 0.25rem;
-      margin-bottom: 0;
-    }
-  }
-
-  .chart-container {
-    margin-top: 2rem;
-  }
-
-
+.chart-pie-container {
+  margin-top: 2rem;
 }
 
 ::ng-deep .ngx-charts-tooltip-content.type-tooltip {

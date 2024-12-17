@@ -4,27 +4,3 @@
   align-items: center;
   flex-direction: column;
 }
-
-.btn-back {
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  font-weight: 300;
-  text-align: center;
-  color: white;
-  background-color: #2F808E;
-  border: 2px solid #2F808E;
-  border-radius: 8px;
-  text-decoration: none;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.btn-back:hover {
-  background-color: white;
-  color: #2F808E;
-}
-
-.btn-back:active {
-  background-color: #1F5A60;
-  border-color: #1F5A60;
-}
