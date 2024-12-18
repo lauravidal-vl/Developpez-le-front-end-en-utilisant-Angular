@@ -29,28 +29,20 @@ export class OlympicService {
   }
 
   getCountryById(countryId: number): Observable<Olympic | undefined> {
-    return this.olympics$.asObservable().pipe(
-      map((olympics) => {
-        const foundCountry = olympics.find((olympic) => olympic.id === countryId);
-        return foundCountry;
-      })
+    return this.getOlympics().pipe(
+      map((olympics) => olympics.find((olympic) => olympic.id === countryId))
     );
   }
 
   getTotalMedals(olympic: Olympic): number {
-    return olympic.participations.reduce((total, participation) => {
-      return total + participation.medalsCount;
-    }, 0);
+      return olympic?.participations?.reduce((total, participation) => total + participation.medalsCount, 0) || 0;
   }
 
   getTotalYears(olympic: Olympic): number {
-    const uniqueYears = new Set(olympic.participations.map(participation => participation.year));
-    return uniqueYears.size; // Retourne le nombre d'années uniques
+      return new Set(olympic?.participations?.map(participation => participation.year) || []).size;
   }
 
   getTotalAthletes(olympic: Olympic): number {
-    return olympic.participations.reduce((total, participation) => {
-      return total + participation.athleteCount;
-    }, 0);
+      return olympic?.participations?.reduce((total, participation) => total + participation.athleteCount, 0) || 0;
   }
 }
