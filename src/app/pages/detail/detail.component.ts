@@ -40,8 +40,8 @@ export class DetailComponent implements OnInit {
     this.olympics$ = this.olympicService.getCountryById(countryId);
     this.olympics$.subscribe((olympics) => {
       if (olympics) {
-        this.totalMedals =this.olympicService.getTotalMedals(olympics);
-        this.totalAthletes = this.olympicService.getTotalAthletes(olympics);
+        this.totalMedals = olympics.getTotalMedals();
+        this.totalAthletes = olympics.getTotalAthletes();
        this.updateLineChartData(olympics);
       }
     });

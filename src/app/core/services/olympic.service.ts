@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, map } from 'rxjs';
+import { BehaviorSubject, Observable, map, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Olympic } from 'src/app/core/models/Olympic';
 
@@ -15,16 +15,19 @@ export class OlympicService {
 
   loadInitialData() {
     return this.http.get<Olympic[]>(this.olympicUrl).pipe(
+      map((data) =>
+        data.map((item) => new Olympic(item.id, item.country, item.participations))
+      ),
       tap((value) => this.olympics$.next(value)),
-      catchError((error, caught) => {
+      catchError((error) => {
         console.error(error);
         this.olympics$.next([]);
-        return caught;
+        return of([]);
       })
     );
   }
 
-  getOlympics() {
+  getOlympics(): Observable<Olympic[]> {
     return this.olympics$.asObservable();
   }
 
@@ -32,17 +35,5 @@ export class OlympicService {
     return this.getOlympics().pipe(
       map((olympics) => olympics.find((olympic) => olympic.id === countryId))
     );
-  }
-
-  getTotalMedals(olympic: Olympic): number {
-      return olympic?.participations?.reduce((total, participation) => total + participation.medalsCount, 0) || 0;
-  }
-
-  getTotalYears(olympic: Olympic): number {
-      return new Set(olympic?.participations?.map(participation => participation.year) || []).size;
-  }
-
-  getTotalAthletes(olympic: Olympic): number {
-      return olympic?.participations?.reduce((total, participation) => total + participation.athleteCount, 0) || 0;
   }
 }

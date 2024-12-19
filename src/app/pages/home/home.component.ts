@@ -12,7 +12,6 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  // @Input() olympic!: Olympic;
 
   public olympics$: Observable<Olympic[]> = of([]);
   public pieChartData!: PieChart[];
@@ -30,7 +29,7 @@ export class HomeComponent implements OnInit {
     this.olympics$.subscribe((olympics) => {
       if (olympics) {
         this.updatePieChartData();
-        this.totalYears = this.olympicService.getTotalYears(olympics[0]);
+        this.totalYears = olympics[0].getTotalYears();
     }
     });
   }
@@ -41,7 +40,7 @@ export class HomeComponent implements OnInit {
         return {
           id: olympic.id,
           name: olympic.country,
-          value: this.olympicService.getTotalMedals(olympic),
+          value: olympic.getTotalMedals(),
         };
       });
     });
