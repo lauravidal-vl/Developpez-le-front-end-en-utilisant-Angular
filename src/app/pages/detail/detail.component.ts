@@ -12,8 +12,8 @@ import { LineChart } from 'src/app/core/models/LineChart';
 })
 export class DetailComponent implements OnInit {
   public olympics$!: Observable<Olympic | undefined>;
-  public totalMedals: number = 0;  // Propriété pour stocker le total des médailles
-  public totalAthletes: number = 0;  // Propriété pour stocker le total des athlètes
+  public totalMedals: number = 0;
+  public totalAthletes: number = 0;
   public lineChartData: LineChart[] = [];
   public lineChartView: [number, number] = [700, 400];
 
@@ -33,10 +33,8 @@ export class DetailComponent implements OnInit {
   ngOnInit(): void {
     const countryId = Number(this.route.snapshot.params['id']);
 
-    // Charger les données initiales
     this.olympicService.loadInitialData().subscribe();
 
-    // S'abonner aux données olympiques
     this.olympics$ = this.olympicService.getCountryById(countryId);
     this.olympics$.subscribe((olympics) => {
       if (olympics) {
@@ -60,18 +58,16 @@ export class DetailComponent implements OnInit {
     }
   }
 
-    // Méthode pour préparer les données du graphique
-    updateLineChartData(olympic: Olympic): void {
-      // Initialiser les données du graphique : le nombre de médailles par participation
-      this.lineChartData = [
-        {
-          name: 'Medals',
-          series: olympic.participations.map(participation => ({
-            name: participation.year.toString(),
-            value: participation.medalsCount
-          }))
-        }
-      ];
-    }
+  updateLineChartData(olympic: Olympic): void {
+    this.lineChartData = [
+      {
+        name: 'Medals',
+        series: olympic.participations.map(participation => ({
+          name: participation.year.toString(),
+          value: participation.medalsCount
+        }))
+      }
+    ];
+  }
 
 }

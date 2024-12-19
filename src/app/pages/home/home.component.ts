@@ -21,10 +21,8 @@ export class HomeComponent implements OnInit {
               private router: Router) {}
 
   ngOnInit(): void {
-    // Charger les données initiales
     this.olympicService.loadInitialData().subscribe();
 
-    // S'abonner aux données olympiques
     this.olympics$ = this.olympicService.getOlympics();
     this.olympics$.subscribe((olympics) => {
       if (olympics) {
@@ -46,12 +44,19 @@ export class HomeComponent implements OnInit {
     });
   }
 
-    onSelect(event: {name: string}): void {
-      const selectedCountry = this.pieChartData.find(
-        (country) => country.name === event.name
-      );
-      if (selectedCountry) {
-        this.router.navigate([`${selectedCountry.id}`]);
-      }
+  /**
+ * Gestion de la sélection d'un pays depuis le graphique
+ * Lorsque l'utilisateur clique sur un pays redirige l'utilisateur vers la route détail du pays sélectionné
+ *
+ * @param event - l'événement contenant le nom du pays sélectionné
+ */
+
+  onSelect(event: {name: string}): void {
+    const selectedCountry = this.pieChartData.find(
+      (country) => country.name === event.name
+    );
+    if (selectedCountry) {
+      this.router.navigate([`${selectedCountry.id}`]);
     }
+  }
 }
