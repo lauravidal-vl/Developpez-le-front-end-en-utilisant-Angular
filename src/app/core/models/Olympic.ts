@@ -16,7 +16,10 @@ export class Olympic {
   }
 
   getTotalYears(): number {
-    return new Set(this.participations?.map((participation) => participation.year) || []).size;
+    if (!this.participations || this.participations.length === 0) {
+      return 0; // Retourne 0 si `participations` est vide ou indéfini
+    }
+    return new Set(this.participations.map((participation) => participation.year)).size;
   }
 
   getTotalAthletes(): number {
