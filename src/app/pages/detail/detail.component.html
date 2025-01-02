@@ -1,11 +1,11 @@
 <div class="main-block">
-  <div *ngIf="olympics$ | async as olympic;" class="stats-container">
-    <h1 class="title">{{ olympic.country }}</h1>
+  <div *ngIf="olympics" class="stats-container">
+    <h1 class="title">{{ olympics.country }}</h1>
   </div>
-  <div *ngIf="olympics$ | async as olympic; else noData" class="stats-container">
+  <div *ngIf="olympics; else noData" class="stats-container">
   <div class="stat-block">
     <h2 class="stat-title">Number of entries</h2>
-    <p class="stat-value">{{ olympic.participations.length }}</p>
+    <p class="stat-value">{{ olympics.participations.length }}</p>
   </div>
   <div class="stat-block">
     <h2 class="stat-title">Total number medals</h2>

@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { Olympic } from 'src/app/core/models/Olympic';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { LineChart } from 'src/app/core/models/LineChart';
 
 @Component({
@@ -10,8 +10,12 @@ import { LineChart } from 'src/app/core/models/LineChart';
   templateUrl: './detail.component.html',
   styleUrl: './detail.component.scss'
 })
-export class DetailComponent implements OnInit {
+export class DetailComponent implements OnInit, OnDestroy {
+
+  private subscriptions = new Subscription();
+
   public olympics$!: Observable<Olympic | undefined>;
+  public olympics?: Olympic;
   public totalMedals: number = 0;
   public totalAthletes: number = 0;
   public lineChartData: LineChart[] = [];
@@ -33,17 +37,31 @@ export class DetailComponent implements OnInit {
   ngOnInit(): void {
     const countryId = Number(this.route.snapshot.params['id']);
 
-    this.olympicService.loadInitialData().subscribe();
+    const loadDataSub = this.olympicService.loadInitialData().subscribe();
+    this.subscriptions.add(loadDataSub);
 
     this.olympics$ = this.olympicService.getCountryById(countryId);
-    this.olympics$.subscribe((olympics) => {
+
+    const olympicsSub = this.olympics$.subscribe((olympics) => {
       if (olympics) {
+        this.olympics = olympics;
         this.totalMedals = olympics.getTotalMedals();
         this.totalAthletes = olympics.getTotalAthletes();
-       this.updateLineChartData(olympics);
+        this.updateLineChartData(olympics);
       }
     });
-    window.addEventListener('resize', () => this.updateChartView());
+    this.subscriptions.add(olympicsSub);
+
+    // Gestion du redimensionnement
+    const resizeListener = () => this.updateChartView();
+    window.addEventListener('resize', resizeListener);
+    this.subscriptions.add({
+      unsubscribe: () => window.removeEventListener('resize', resizeListener)
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   updateChartView() {

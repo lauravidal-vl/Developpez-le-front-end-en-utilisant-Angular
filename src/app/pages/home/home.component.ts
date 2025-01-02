@@ -1,7 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, of, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Observable, of, Subscription  } from 'rxjs';
 import { Olympic } from 'src/app/core/models/Olympic';
 import { PieChart } from 'src/app/core/models/PieChart';
 import { OlympicService } from 'src/app/core/services/olympic.service';
@@ -11,9 +10,12 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
-  public olympics$: Observable<Olympic[]> = of([]);
+  private subscriptions: Subscription = new Subscription();
+
+  // public olympics$: Observable<Olympic[]> = of([]);
+  public olympics: Olympic[] = [];
   public pieChartData!: PieChart[];
   public totalYears: number = 0;
 
@@ -21,26 +23,27 @@ export class HomeComponent implements OnInit {
               private router: Router) {}
 
   ngOnInit(): void {
-    this.olympicService.loadInitialData().subscribe();
 
-    this.olympics$ = this.olympicService.getOlympics();
-    this.olympics$.subscribe((olympics) => {
+    const loadDataSub = this.olympicService.loadInitialData().subscribe();
+    this.subscriptions.add(loadDataSub);
+
+    const olympicsSub = this.olympicService.getOlympics().subscribe((olympics) => {
       if (olympics) {
+        this.olympics = olympics;
         this.updatePieChartData();
         this.totalYears = olympics[0].getTotalYears();
     }
     });
+    this.subscriptions.add(olympicsSub);
   }
 
   updatePieChartData(): void {
-    this.olympics$.subscribe((olympics) => {
-      this.pieChartData = olympics.map((olympic) => {
-        return {
-          id: olympic.id,
-          name: olympic.country,
-          value: olympic.getTotalMedals(),
-        };
-      });
+    this.pieChartData = this.olympics.map((olympic) => {
+      return {
+        id: olympic.id,
+        name: olympic.country,
+        value: olympic.getTotalMedals(),
+      };
     });
   }
 
@@ -59,4 +62,10 @@ export class HomeComponent implements OnInit {
       this.router.navigate([`${selectedCountry.id}`]);
     }
   }
+
+  ngOnDestroy(): void {
+    // Désabonnement lors de la destruction du composant
+    this.subscriptions.unsubscribe();
+  }
+
 }
